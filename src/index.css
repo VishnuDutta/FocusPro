@@ -1,0 +1,30 @@
+/* Importing Tailwind must */
+@import "tailwindcss";
+
+/* Different Modes for Website */
+@custom-variant focus (&:where(.focus, .focus *));
+
+/* Adding Custom Colors , Fonts , background url etc */
+@theme {
+  --color-lightGray: #b3b3b3;
+  --color-btnBg: #6e6d70;
+
+  --font-primary: "", "";
+
+  /* --background */
+}
+
+/* Adding Custom Classes */
+
+/* For dashBoard Icons and Text */
+.dashboardIcons {
+  @apply w-3 h-3 sm:w-5 sm:h-5 lg:w-6 lg:h-6 xl:w-7 xl:h-7 2xl:w-8 2xl:h-8 mx-auto hover:rotate-90 delay-100 transition-all;
+}
+
+.dashboardText {
+  @apply text-sm font-bold md:font-medium md:text-base lg:text-xl lg:font-bold xl:text-2xl 2xl:text-3xl;
+}
+
+.inputBoxBottomLine {
+  @apply border outline-none border-t-0 border-x-0 border-lightGray text-lightGray text-sm md:placeholder:text-base lg:placeholder:text-lg xl:placeholder:text-xl xl:placeholder:font-bold;
+}
