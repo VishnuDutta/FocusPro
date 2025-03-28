@@ -36,7 +36,7 @@ export default function RootElement() {
 
   return (
     <div
-      className={`flex flex-col justify-between p-2 bg-[url('/src/assets/Buttons_PNG/landscape.jpg')] bg-cover bg-no-repeat h-screen bg-center`}
+      className={`flex flex-col justify-between p-2 bg-[url('/src/assets/')] bg-cover bg-no-repeat h-screen bg-center`}
     >
       <Top />
       <Center />
