@@ -7,6 +7,56 @@ import leftArrow from "/src/assets/Buttons_PNG/left_arrow.png";
 import chrome_sign from "/src/assets/Buttons_PNG/chrome_sign.png";
 import delete_sign from "/src/assets/Buttons_PNG/delete_icon.png";
 
+/**
+ * HyperLink Component
+ * 
+ * This component provides a user interface for managing and interacting with a list of hyperlinks.
+ * Users can add, search, and delete links, which are stored in the browser's localStorage.
+ * 
+ * @component
+ * @returns {JSX.Element} The rendered HyperLink component.
+ * 
+ * @description
+ * - Displays a list of links with options to add, search, and delete.
+ * - Uses `useState` for managing component state and `useRef` for accessing input values.
+ * - Persists links in `localStorage` and updates it whenever the list changes.
+ * - Handles click events outside the component to close dropdowns.
+ * 
+ * @state
+ * @property {boolean} showDiv - Controls the visibility of the links dropdown.
+ * @property {boolean} showAddLinkDiv - Controls the visibility of the add link form.
+ * @property {Array<Object>} totalLinks - Stores the list of links with their name, URL, and unique ID.
+ * @property {string} searchQuery - Stores the current search query for filtering links.
+ * 
+ * @refs
+ * @property {React.RefObject<HTMLInputElement>} linkValue - Reference to the input field for the link URL.
+ * @property {React.RefObject<HTMLInputElement>} linkName - Reference to the input field for the link name.
+ * @property {React.RefObject<HTMLElement>} containerRef - Reference to the container element for detecting outside clicks.
+ * 
+ * @effects
+ * - Updates `localStorage` whenever `totalLinks` changes.
+ * - Adds and removes event listeners for detecting clicks outside the component.
+ * 
+ * @functions
+ * @function handleShowDiv - Toggles the visibility of the links dropdown.
+ * @function showAddLink - Displays the add link form and hides the links dropdown.
+ * @function showLinks - Displays the links dropdown and hides the add link form.
+ * @function handleClickOutside - Closes dropdowns when clicking outside the component.
+ * @function BtnClicked - Adds a new link to the list and resets the input fields.
+ * @function handleKey - Handles the "Enter" key press to trigger adding a link.
+ * @function BtnDelete - Deletes a link from the list by its unique ID.
+ * @function handleSearchQuery - Updates the search query for filtering links.
+ * 
+ * @variables
+ * @constant {Array<Object>} filteredLinks - The list of links filtered by the search query.
+ * 
+ * @dependencies
+ * - React hooks: `useState`, `useRef`, `useEffect`
+ * - LocalStorage for persisting links
+ * 
+ * @example
+ * <HyperLink />
+ */
 export default function HyperLink() {
   //All Use States
   const [showDiv, setShowDiv] = useState(false);
