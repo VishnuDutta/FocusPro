@@ -28,3 +28,13 @@
 .inputBoxBottomLine {
   @apply border outline-none border-t-0 border-x-0 border-lightGray text-lightGray text-sm md:placeholder:text-base lg:placeholder:text-lg xl:placeholder:text-xl xl:placeholder:font-bold;
 }
+
+[data-test-id="CircularProgressbarWithChildren__children"] {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  margin-top: -15% !important;
+  display: block !important;
+  justify-content: initial !important;
+  align-items: initial !important;
+}

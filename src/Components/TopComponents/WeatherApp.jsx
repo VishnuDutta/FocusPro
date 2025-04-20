@@ -13,8 +13,12 @@ export default function WeatherApp() {
   const [searchDiv, setSearchDiv] = useState(false);
   const [loading, setLoading] = useState(false);
   const [weatherData, setWeatherData] = useState({});
+  const [searchItemsDiv, setSearchItemsDiv] = useState(true);
 
-  //All Use Refs
+  //The Searched Items we recieved from the APi
+  const [searchItems, setSearchItems] = useState();
+
+  //All Use Refst
   // --For getting Input Search Value
   const inputCity = useRef(null);
 
@@ -55,16 +59,17 @@ export default function WeatherApp() {
   }
 
   function weahterInputEnterKey(e) {
+    betterfunction();
     if (e.key === "Enter") {
-      apiToUpdateWeatherInfo();
+      apiToUpdateWeatherInfo(inputCity.current.value);
       setSearchDiv(false);
     }
   }
 
-  async function apiToUpdateWeatherInfo() {
+  async function apiToUpdateWeatherInfo(cityRev) {
     setLoading(true);
     const tempCity = inputCity.current
-      ? inputCity.current.value
+      ? cityRev
       : localStorage.getItem("inputCity");
     localStorage.setItem("inputCity", tempCity);
     // axios
@@ -75,40 +80,68 @@ export default function WeatherApp() {
 
     try {
       const res = await axios.post("http://localhost:3000/api/", { tempCity });
-        updateWeatherInfoState(res.data)
+      if(res.data && res.data.location && res.data.current){
+        updateWeatherInfoState(res.data);
+      }
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
   function updateWeatherInfoState(data) {
     setWeatherData((prev) => ({
       ...prev,
-      temperature: 23,
-      cityName: data.location.name,
-      feelsLike: data.current.feelslike_c,
-      recentRain: 0,
-      windSpeed: data.current.wind_kph,
+      temperature: 23 || "Error",
+      cityName: data.location.name || "Error",
+      feelsLike: data.current.feelslike_c || "Error",
+      recentRain: 0 || "Error",
+      windSpeed: data.current.wind_kph || "Error",
     }));
-    inputCity.current.value = "";
+    if(inputCity.current){
+      inputCity.current.value = "";
+    }
+    setSearchDiv(false)
   }
 
-  //Debounce function is for the Search options as to Reduce the API Calls
-  // const debounceWeatherSearch = (fn, delay) => {
-  //   let timer;
-  //   return function () {
-  //     let context = this,
-  //     args = arguments;
-  //     clearTimeout(timer);
-  //     timer = setTimeout(() => {
-  //       UpdateWeatherInfo.apply(context, arguments);
-  //     }, delay);
-  //   };
-  // };
+  async function searchAPI() {
+    if (inputCity.current.value) {
+      setLoading(true);
+      const searchedCity = inputCity.current.value;
+      try {
+        const res = await axios.post("http://localhost:3000/searchapi/", {
+          searchedCity,
+        });
+        setSearchItems(res.data[0].name);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  }
 
-  // const betterfunction = debounceWeatherSearch(UpdateWeatherInfo , 600);
+  function searchedItemClick(e) {
+    if(e.target.innerText){
+      apiToUpdateWeatherInfo(e.target.innerText);
+    }
+  }
+
+  // Debounce function is for the Search options as to Reduce the API Calls
+  const debounceWeatherSearch = (fn, delay) => {
+    let timer;
+    return function () {
+      let context = this,
+        args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn.apply(context, arguments);
+      }, delay);
+    };
+  };
+
+  const betterfunction = debounceWeatherSearch(searchAPI, 600);
 
   return (
     <>
@@ -147,14 +180,28 @@ export default function WeatherApp() {
                     className="w-5 h-5 lg:w-5 lg:h-5 md:w-3 md:h-3 sm:w-2 sm-2 hover:scale-110%"
                   />
                   {searchDiv && (
-                    <input
-                      ref={inputCity}
-                      defaultValue={localStorage.getItem("inputCity")}
-                      onKeyUp={(e) => weahterInputEnterKey(e)}
-                      type="text"
-                      className="absolute left-0 top-0 w-[100%] bg-black/50 h-10 rounded-lg text-center text-sm outline-none border border-lightGray border-t-0 border-x-0 lg:text-lg md:text-md sm:text-sm"
-                      placeholder="Search your city"
-                    />
+                    <div className="absolute left-0 top-0 w-[100%] bg-black/50 rounded-lg">
+                      <input
+                        ref={inputCity}
+                        // defaultValue={localStorage.getItem("inputCity")}
+                        onKeyUp={(e) => weahterInputEnterKey(e)}
+                        type="text"
+                        className="w-[100%] h-10 rounded-lg text-center text-sm outline-none lg:text-lg md:text-md sm:text-sm"
+                        placeholder="Search your city"
+                      />
+                      {searchItemsDiv && (
+                        <div className="overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-lightGray [&::-webkit-scrollbar-thumb]:bg-black/50">
+                          {searchItems && (
+                            <h1
+                              className="border border-b-gray-200 h-8 hover:bg-amber-50"
+                              onClick={(e) => searchedItemClick(e)}
+                            >
+                              {searchItems}
+                            </h1>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   )}
                 </div>
               </div>
