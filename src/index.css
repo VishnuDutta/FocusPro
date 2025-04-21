@@ -33,8 +33,20 @@
   position: static !important;
   width: auto !important;
   height: auto !important;
-  margin-top: -15% !important;
+  margin-top: -100px !important;
   display: block !important;
   justify-content: initial !important;
   align-items: initial !important;
+}
+
+@media screen and (min-width: 400px) {
+  [data-test-id="CircularProgressbarWithChildren__children"]{
+    margin-top: -50px !important;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  [data-test-id="CircularProgressbarWithChildren__children"]{
+    margin-top: -70px !important;
+  }
 }
