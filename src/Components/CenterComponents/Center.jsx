@@ -4,8 +4,8 @@ import Podometer from './Podometer';
 export default function Center(){
     return (
         <center className=''>
-        {/* <Clock/> */}
-        <Podometer/>
+        <Clock/>
+        {/* <Podometer/> */}
         </center>
     )
 }

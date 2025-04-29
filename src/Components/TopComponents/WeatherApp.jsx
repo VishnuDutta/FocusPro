@@ -80,7 +80,7 @@ export default function WeatherApp() {
 
     try {
       const res = await axios.post("http://localhost:3000/api/", { tempCity });
-      if(res.data && res.data.location && res.data.current){
+      if (res.data && res.data.location && res.data.current) {
         updateWeatherInfoState(res.data);
       }
     } catch (error) {
@@ -99,10 +99,10 @@ export default function WeatherApp() {
       recentRain: 0 || "Error",
       windSpeed: data.current.wind_kph || "Error",
     }));
-    if(inputCity.current){
+    if (inputCity.current) {
       inputCity.current.value = "";
     }
-    setSearchDiv(false)
+    setSearchDiv(false);
   }
 
   async function searchAPI() {
@@ -123,7 +123,7 @@ export default function WeatherApp() {
   }
 
   function searchedItemClick(e) {
-    if(e.target.innerText){
+    if (e.target.innerText) {
       apiToUpdateWeatherInfo(e.target.innerText);
     }
   }

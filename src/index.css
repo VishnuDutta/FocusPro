@@ -26,7 +26,7 @@
 }
 
 .inputBoxBottomLine {
-  @apply border outline-none border-t-0 border-x-0 border-lightGray text-lightGray text-sm md:placeholder:text-base lg:placeholder:text-lg xl:placeholder:text-xl xl:placeholder:font-bold;
+  @apply border outline-none border-t-0 border-x-0 border-lightGray text-lightGray md:placeholder:text-base lg:placeholder:text-lg xl:placeholder:text-xl xl:placeholder:font-bold;
 }
 
 [data-test-id="CircularProgressbarWithChildren__children"] {
