@@ -76,7 +76,7 @@ export default function Setting() {
               <ul className="flex flex-col">
                 <li
                   onClick={() => letsHope("general_div")}
-                  className={`${liCss} ${""}
+                  className={`${liCss}
                     ${active.general_div ? " text-amber-50 " : ""}`}
                 >
                   General

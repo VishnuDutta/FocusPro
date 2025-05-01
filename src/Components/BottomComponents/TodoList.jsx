@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function TodoList() {
   //All States
-  const [showDiv, setshowDiv] = useState(true);
+  const [showDiv, setshowDiv] = useState(false);
   const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem("tasks")) || []);
 
   //All UseRef
