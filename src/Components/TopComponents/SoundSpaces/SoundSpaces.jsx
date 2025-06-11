@@ -5,7 +5,6 @@ export default function SingliSoundSpaceLi({
   name,
   svgElement,
   callBack,
-  playPauseBtn,
 }) {
   return (
     <li
